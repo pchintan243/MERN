@@ -42,8 +42,17 @@ router.post('/signin', async (req, res) => {
         const userLogin = await User.findOne({ email: email });
         if (userLogin) {
             const isMatch = await bcrypt.compare(password, userLogin.password);
+
             const token = await userLogin.generateAuthToken();
             console.log(token);
+
+            // 25892 is millisecond of 30days
+            // After 30days token will be expires
+            res.cookie("jwttoken", token, {
+                expires: new Date(Date.now() + 2589200000),
+                httpOnly: true
+            })
+
             if (!isMatch) {
                 res.status(400).json({ error: "Invalid credentials " })
             }
