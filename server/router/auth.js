@@ -16,9 +16,14 @@ router.post('/register', async (req, res) => {
         if (userExist) {
             return res.status(400).send("Email was already exist");
         }
-        const user = new User({ name, email, phone, work, password, cpassword });
-        const userRegister = await user.save();
-        res.send("su")
+        else if (password !== cpassword) {
+            return res.status(400).send("Password are not same");
+        }
+        else {
+            const user = new User({ name, email, phone, work, password, cpassword });
+            const userRegister = await user.save();
+            res.send("su")
+        }
     }
     catch (error) {
         res.status(404).send(error)
