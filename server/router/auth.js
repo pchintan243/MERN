@@ -9,11 +9,15 @@ router.get('/', (req, res) => {
     res.send('dhskh')
 })
 
-router.post('/register', (req, res) => {
+router.post('/register', async (req, res) => {
+    const { name, email, phone, work, password, cpassword } = req.body;
     try {
-        const { name, email, phone, work, password, cpassword } = req.body;
+        const userExist = await User.findOne({ email: email });
+        if (userExist) {
+            return res.status(400).send("Email was already exist");
+        }
         const user = new User({ name, email, phone, work, password, cpassword });
-        user.save();
+        const userRegister = await user.save();
         res.send("su")
     }
     catch (error) {
