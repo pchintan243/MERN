@@ -8,7 +8,11 @@ const port = process.env.PORT;
 
 require("./db/conn");
 
+app.use(express.json());
+
 const User = require('./models/userSchema')
+// Get router file
+app.use(require('./router/auth'));
 
 // middleware
 // Is use for check the authentication
