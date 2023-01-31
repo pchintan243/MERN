@@ -1,13 +1,14 @@
 const express = require('express')
-const dotenv = require('dotenv')
 const app = express()
+const dotenv = require('dotenv')
 
 dotenv.config({ path: './config.env' })
 
 const port = process.env.PORT;
 
-
 require("./db/conn");
+
+const User = require('./models/userSchema')
 
 // middleware
 // Is use for check the authentication
