@@ -54,6 +54,10 @@ input {
   outline: none;
 }
 
+input:hover {
+  background-color: #2e2960;
+}
+
 .signup-btn {
   width: 60%;
   height: 40px;
