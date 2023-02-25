@@ -54,9 +54,15 @@ input {
   outline: none;
 }
 
-input:hover {
-  background-color: #2e2960;
+.signup input {
+  color: white;
+  background-color: transparent;
 }
+
+.signup input:hover {
+  background-color: transparent;
+}
+
 
 .signup-btn {
   width: 60%;
@@ -82,7 +88,7 @@ input:hover {
 
 .login {
   height: 460px;
-  background: #eee;
+  background: white;
   border-radius: 60% / 10%;
   transform: translateY(-180px);
   transition: .8s ease-in-out;
@@ -105,8 +111,8 @@ input:hover {
   transform: scale(.6);
 }
 
-input:active,
-input:focus {
+.signup input:active,
+.signup input:focus {
   outline: none;
   border-bottom-color: #6A679E;
 }
