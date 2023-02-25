@@ -11,8 +11,7 @@
 
 .main {
   width: 350px;
-  height: 550px;
-  background: red;
+  height: 540px;
   overflow: hidden;
   background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
   border-radius: 10px;
@@ -41,7 +40,7 @@ label {
 }
 
 input {
-  width: 60%;
+  width: 75%;
   height: 30px;
   justify-content: center;
   display: flex;
@@ -96,7 +95,7 @@ input {
 
 .login label {
   color: #573b8a;
-  transform: scale(.6);
+  transform: scale(.6);  
 }
 
 #chk:checked~.login {
@@ -123,4 +122,16 @@ input {
 
 .login ::placeholder {
   color: #6d44b8
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50px #2a2558 inset;
+  /* Change the color to your own background color */
+  -webkit-text-fill-color: white;
+}
+
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 50px #2a2558 inset;
+  /*your box-shadow*/
+  -webkit-text-fill-color: white;
 }
