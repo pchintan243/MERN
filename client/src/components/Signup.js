@@ -54,8 +54,6 @@ const SignUp = () => {
     <>
       <div className="mainn">
         <div className="main">
-          <input type="checkbox" id="chk" aria-hidden="true" />
-
           <div className="signup">
             <form method='POST'>
               <label htmlFor="chk" aria-hidden="true">Sign up</label>
@@ -65,15 +63,6 @@ const SignUp = () => {
               <input type="password" name="password" placeholder="Password" autoComplete='off' value={user.password} onChange={handleInputs} required />
               <input type="password" name="cpassword" placeholder="Confirm Password" autoComplete='off' value={user.cpassword} onChange={handleInputs} required />
               <button type="button" className='signup-btn' onClick={PostData}>Sign up</button>
-            </form>
-          </div>
-
-          <div className="login">
-            <form>
-              <label htmlFor="chk" aria-hidden="true">Login</label>
-              <input type="email" name="email" placeholder="Email" required />
-              <input type="password" name="password" placeholder="Password" autoComplete='off' required />
-              <button className='signup-btn'>Login</button>
             </form>
           </div>
         </div>
