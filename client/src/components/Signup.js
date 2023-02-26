@@ -26,7 +26,7 @@ const SignUp = () => {
     const { name, email, phone, password, cpassword } = user;
 
     // It connects the backend
-    const res = await fetch("http://localhost:7800/register", {
+    const res = await fetch("/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
