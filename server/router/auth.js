@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const authenticate = require("../middleware/authenticate")
 
 require("../db/conn");
 const User = require("../models/userSchema");
@@ -18,7 +19,7 @@ router.post('/register', async (req, res) => {
             return res.status(422).json({ error: "Email was already exist" });
         }
         else if (password !== cpassword) {
-            return res.status(422).json({ error: "Password are not same"});
+            return res.status(422).json({ error: "Password are not same" });
         }
         else {
             const user = new User({ name, email, phone, password, cpassword });
@@ -67,6 +68,11 @@ router.post('/signin', async (req, res) => {
     catch (error) {
         res.status(404).json({ error: "Error" })
     }
+})
+
+
+router.get("/about", authenticate, (req, res) => {
+
 })
 
 module.exports = router;

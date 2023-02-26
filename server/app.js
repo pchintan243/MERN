@@ -26,9 +26,9 @@ app.get('/', (req, res) => {
     res.send('bsd');
 })
 
-app.get('/about', middleware, (req, res) => {
-    res.send('about')
-})
+// app.get('/about', middleware, (req, res) => {
+//     res.send('about')
+// })
 
 app.get('/contact', (req, res) => {
     res.send('bscontactd')
