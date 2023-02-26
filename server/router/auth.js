@@ -11,23 +11,23 @@ router.get('/', (req, res) => {
 })
 
 router.post('/register', async (req, res) => {
-    const { name, email, phone, work, password, cpassword } = req.body;
+    const { name, email, phone, password, cpassword } = req.body;
     try {
         const userExist = await User.findOne({ email: email });
         if (userExist) {
-            return res.status(400).send("Email was already exist");
+            return res.status(422).send("Email was already exist");
         }
         else if (password !== cpassword) {
-            return res.status(400).send("Password are not same");
+            return res.status(422).send("Password are not same");
         }
         else {
-            const user = new User({ name, email, phone, work, password, cpassword });
+            const user = new User({ name, email, phone, password, cpassword });
             const userRegister = await user.save();
-            res.send("su")
+            res.status(201).send("User Registered Successfully..!!");
         }
     }
     catch (error) {
-        res.status(404).send(error)
+        res.status(404).send(error);
     }
 })
 
