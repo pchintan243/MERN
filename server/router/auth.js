@@ -15,19 +15,19 @@ router.post('/register', async (req, res) => {
     try {
         const userExist = await User.findOne({ email: email });
         if (userExist) {
-            return res.status(422).send("Email was already exist");
+            return res.status(422).json({ error: "Email was already exist" });
         }
         else if (password !== cpassword) {
-            return res.status(422).send("Password are not same");
+            return res.status(422).json({ error: "Password are not same"});
         }
         else {
             const user = new User({ name, email, phone, password, cpassword });
             const userRegister = await user.save();
-            res.status(201).send("User Registered Successfully..!!");
+            res.status(201).json({ message: "User Registered Successfully..!!" });
         }
     }
     catch (error) {
-        res.status(404).send(error);
+        res.status(404).json({ error });
     }
 })
 
@@ -37,7 +37,7 @@ router.post('/signin', async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
-            return res.status(400).send("please filled the data")
+            return res.status(400).json({ error: "please filled the data}" })
         }
         const userLogin = await User.findOne({ email: email });
         if (userLogin) {
@@ -57,7 +57,7 @@ router.post('/signin', async (req, res) => {
                 res.status(400).json({ error: "Invalid credentials " })
             }
             else {
-                res.send("success login");
+                res.json({ message: "success login" });
             }
         }
         else {
@@ -65,7 +65,7 @@ router.post('/signin', async (req, res) => {
         }
     }
     catch (error) {
-        res.status(404).send(error)
+        res.status(404).json({ error: "Error" })
     }
 })
 
