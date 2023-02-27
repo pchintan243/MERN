@@ -1,6 +1,37 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 
 const Contact = () => {
+
+  const [userData, setUserData] = useState({});
+
+  const userContact = async () => {
+    try {
+      const res = await fetch("/getdata", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      const data = await res.json();
+      console.log(data);
+      // To get the data
+      setUserData(data);
+
+      if (res.status !== 200) {
+        const error = new Error(res.error);
+        throw error;
+      }
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    userContact();
+  }, [])
+
+
   return (
     <>
       <div className="container">
@@ -52,15 +83,15 @@ const Contact = () => {
           <div className='text-center h3 fw-bold m-4'>
             Contact Form
           </div>
-          <form className="row m-4">
-            <div className="col-md-4">
-              <input type="text" className="form-control p-3" placeholder="Your Name" required />
+          <form className="row">
+            <div className="col-md-4 mb-3">
+              <input type="text" className="form-control p-2" placeholder="Your Name" value={userData.name} required />
             </div>
             <div className="col-md-4">
-              <input type="email" className="form-control p-3" aria-describedby="emailHelp" placeholder='Email' />
+              <input type="email" className="form-control p-2" aria-describedby="emailHelp" placeholder='Email' value={userData.email} />
             </div>
             <div className="col-md-4">
-              <input type="text" className="form-control p-3" placeholder="Phone No." required />
+              <input type="text" className="form-control p-2" placeholder="Phone No." value={userData.phone} required />
             </div>
             <div className="col-md-12">
               <textarea className="form-control" placeholder="Message" style={{ height: "150px" }}></textarea>

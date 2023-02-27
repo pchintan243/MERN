@@ -5,7 +5,7 @@ import profile from '../images/aboutpic.png';
 const About = () => {
   const navigate = useNavigate();
 
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState({});
 
   const callAboutPage = async () => {
     try {
@@ -35,6 +35,7 @@ const About = () => {
 
   useEffect(() => {
     callAboutPage();
+    // eslint-disable-next-line
   }, [])
 
 
