@@ -70,9 +70,9 @@ router.post('/signin', async (req, res) => {
     }
 })
 
-
+// authenticate is user for user not directly go to any page without login
 router.get("/about", authenticate, (req, res) => {
-
+    res.send(req.rootUser);
 })
 
 module.exports = router;
