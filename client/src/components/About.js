@@ -1,11 +1,42 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import profile from '../images/aboutpic.png';
 
 const About = () => {
+  const navigate = useNavigate();
+  const callAboutPage = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/about", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        credentials: "include"
+      });
+      const data = await res.json();
+      console.log(data);
+
+      if (res.status !== 200) {
+        const error = new Error(res.error);
+        throw error;
+      }
+    }
+    catch (error) {
+      console.log(error);
+      navigate("/login");
+    }
+  }
+
+  useEffect(() => {
+    callAboutPage();
+  }, [])
+
+
   return (
     <>
       <div className="container m-6">
-        <form method="get">
+        <form method="GET">
           <div className='row d-flex justify-content-center'>
             <div className="col-md-9 d-flex justify-content-center align-items-center">
               <div className="col-md-3">
@@ -147,8 +178,6 @@ const About = () => {
                     </div>
                   </div>
                 </div>
-
-
               </div>
             </div>
           </div>
