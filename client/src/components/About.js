@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import profile from '../images/aboutpic.png';
 
 const About = () => {
   const navigate = useNavigate();
+
+  const [userData, setUserData] = useState();
+
   const callAboutPage = async () => {
     try {
       const res = await fetch("/about", {
@@ -16,6 +19,8 @@ const About = () => {
       });
       const data = await res.json();
       console.log(data);
+      // To get the data
+      setUserData(data);
 
       if (res.status !== 200) {
         const error = new Error(res.error);
@@ -44,7 +49,7 @@ const About = () => {
               </div>
               <div className="col-md-6">
                 <div className="profile-head">
-                  <h3>Vinod Thapa</h3>
+                  <h3>{userData.name}</h3>
                   <h5>Web Developer</h5>
                   <p className='mt-3 mb-5 fw-bold'>Rankings: <span> 1/10 </span></p>
                   <ul className="nav nav-tabs" role='tablist'>
@@ -95,7 +100,7 @@ const About = () => {
                     </div>
                     <div className="col-md-3"></div>
                     <div className="col-md-6">
-                      <p>Chintan Patel</p>
+                      <p>{userData.name}</p>
                     </div>
                   </div>
                   <div className="row">
@@ -104,7 +109,7 @@ const About = () => {
                     </div>
                     <div className="col-md-3"></div>
                     <div className="col-md-6">
-                      <p>patelchintan843@gmail.com</p>
+                      <p>{userData.email}</p>
                     </div>
                   </div>
 
@@ -114,17 +119,7 @@ const About = () => {
                     </div>
                     <div className="col-md-3"></div>
                     <div className="col-md-6">
-                      <p>9876543210</p>
-                    </div>
-                  </div>
-
-                  <div className="row">
-                    <div className="col-md-3 d-flex justify-content-space-between">
-                      <label className='text-dark m-0 h5'>Profession</label>
-                    </div>
-                    <div className="col-md-3"></div>
-                    <div className="col-md-6">
-                      <p>Web Developer</p>
+                      <p>{userData.phone}</p>
                     </div>
                   </div>
                 </div>
