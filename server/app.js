@@ -32,9 +32,9 @@ app.get('/', (req, res) => {
 //     res.send('about')
 // })
 
-app.get('/contact', (req, res) => {
-    res.send('bscontactd')
-})
+// app.get('/contact', (req, res) => {
+//     res.send('bscontactd')
+// })
 
 app.get('/signin', (req, res) => {
     res.send('signin')

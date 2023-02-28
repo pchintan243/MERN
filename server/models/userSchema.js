@@ -23,6 +23,31 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    date: {
+        type: Date,
+        default: Date.now()
+    },
+    // Make sure :Write messages don't write name field value in schema because number of messages are there
+    messages: [
+        {
+            name: {
+                type: String,
+                required: true
+            },
+            email: {
+                type: String,
+                required: true
+            },
+            phone: {
+                type: Number,
+                required: true
+            },
+            message: {
+                type: String,
+                required: true
+            }
+        }
+    ],
     tokens: [
         {
             token: {
@@ -55,6 +80,19 @@ userSchema.methods.generateAuthToken = async function () {
         return token1;
     }
     catch (error) {
+        console.log(error);
+    }
+}
+
+
+// Store the messages
+userSchema.methods.addMessage = async function (name, email, phone, message) {
+    // Add this detail in userschema
+    try {
+        this.messages = this.messages.concat({ name, email, phone, message });
+        await this.save();
+        return this.messages;
+    } catch (error) {
         console.log(error);
     }
 }

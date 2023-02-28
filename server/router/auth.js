@@ -78,6 +78,27 @@ router.get("/about", authenticate, (req, res) => {
 // Get user data for contact page and home page
 router.get('/getdata', authenticate, (req, res) => {
     res.send(req.rootUser);
-})
+});
+
+// Contact us Page
+router.post('/contact', authenticate, async (req, res) => {
+    try {
+        const { name, email, phone, message } = req.body;
+        if (!name || !email || !phone || !message) {
+            return res.json({ error: "Please filled the contact form correctly..!!" })
+        }
+
+        // Get the user detail by id
+        const userContact = await User.findOne({ _id: req.userID });
+
+        if (userContact) {
+            const userMessage = await userContact.addMessage(name, email, phone, message);
+            await userContact.save();
+            res.status(201).json({ message: "User contact successfully..!!" })
+        }
+    } catch (error) {
+        console.log(error);
+    }
+});
 
 module.exports = router;

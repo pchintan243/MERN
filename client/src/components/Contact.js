@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 const Contact = () => {
 
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState({ name: "", email: "", phone: "", message: "" });
 
   const userContact = async () => {
     try {
@@ -15,7 +15,7 @@ const Contact = () => {
       const data = await res.json();
       console.log(data);
       // To get the data
-      setUserData(data);
+      setUserData({ ...userData, name: data.name, email: data.email, phone: data.phone });
 
       if (res.status !== 200) {
         const error = new Error(res.error);
@@ -31,6 +31,42 @@ const Contact = () => {
     userContact();
   }, [])
 
+
+  const handleInputs = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    // Get all the details using below syntax
+    // This is use because we want multiple data like name, email, phone, message
+    setUserData({ ...userData, [name]: value })
+  }
+
+  // Send the data to the backend
+  const contactForm = async (e) => {
+    e.preventDefault();
+    
+    const { name, email, phone, message } = userData;
+
+    const res = await fetch("/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name, email, phone, message
+      })
+    });
+
+    const data = await res.json();
+
+    if (!data) {
+      console.log("Message not send..!!");
+    }
+    else {
+      alert("Message send..!!");
+      setUserData({ ...userData, message: "" });
+    }
+  }
 
   return (
     <>
@@ -83,21 +119,21 @@ const Contact = () => {
           <div className='text-center h3 fw-bold m-4'>
             Contact Form
           </div>
-          <form className="row">
+          <form className="row" method="POST">
             <div className="col-md-4 mb-3">
-              <input type="text" className="form-control p-2" placeholder="Your Name" value={userData.name} required />
+              <input type="text" className="form-control p-2" placeholder="Your Name" name="name" value={userData.name} onChange={handleInputs} required />
             </div>
             <div className="col-md-4">
-              <input type="email" className="form-control p-2" aria-describedby="emailHelp" placeholder='Email' value={userData.email} />
+              <input type="email" className="form-control p-2" aria-describedby="emailHelp" placeholder='Email' name="email" value={userData.email} onChange={handleInputs} required />
             </div>
             <div className="col-md-4">
-              <input type="text" className="form-control p-2" placeholder="Phone No." value={userData.phone} required />
+              <input type="text" className="form-control p-2" placeholder="Phone No." name="phone" value={userData.phone} onChange={handleInputs} required />
             </div>
             <div className="col-md-12">
-              <textarea className="form-control" placeholder="Message" style={{ height: "150px" }}></textarea>
+              <textarea className="form-control" placeholder="Message" name="message" value={userData.message} style={{ height: "150px" }} onChange={handleInputs} required></textarea>
             </div>
             <div className="container my-4">
-              <button className="btn btn-danger" type='submit'>Send Messages</button>
+              <button className="btn btn-danger" type='submit' onClick={contactForm}>Send Messages</button>
             </div>
           </form>
         </div>
