@@ -101,4 +101,12 @@ router.post('/contact', authenticate, async (req, res) => {
     }
 });
 
+// Logout section
+router.get("/logout", (req, res) => {
+    // Clear the cookie so user can't able to go anypage without login again
+    // Make sure cookies name is same as you provide
+    res.clearCookie('jwttoken', { path: "/" })
+    res.status(200).send('User Logout');
+})
+
 module.exports = router;
