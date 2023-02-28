@@ -1,8 +1,41 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from "react-router-dom";
-import logo from "../images/logo.png"
+import logo from "../images/logo.png";
+import { UserContext } from '../App';
 
 const Navbar = () => {
+
+    const { state, dispatch } = useContext(UserContext);
+
+    // Our state value is getting from UseReducer file
+    const CheckFunction = () => {
+        // If user is login then it shows logout option
+        // Not display registraion or login option
+        if (state) {
+            return (
+                <>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/logout">Logout</Link>
+                    </li>
+                </>
+            )
+        }
+        else {
+            // If user is not login then it shows registration and login option
+            // Not display registraion or logout option
+            return (
+                <>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/login">Login</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/signup">Registration</Link>
+                    </li>
+                </>
+            )
+        }
+    }
+
     return (
         <>
             <nav className="navbar navbar-expand-lg bg-light">
@@ -24,15 +57,8 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/contact">Contact</Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/login">Login</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/signup">Registration</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/logout">Logout</Link>
-                            </li>
+                            {/* Check user is login or not so we modify our navbar */}
+                            <CheckFunction />
                         </ul>
                     </div>
                 </div>

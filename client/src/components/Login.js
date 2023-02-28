@@ -1,7 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../App';
 
 const Login = () => {
+
+  // For navbar option login logout modify
+  const { state, dispatch } = useContext(UserContext);
 
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -11,6 +15,7 @@ const Login = () => {
     e.preventDefault();
 
     // Getting the post request using auth.js
+
     const res = await fetch('/signin', {
       method: "POST",
       headers: {
@@ -31,6 +36,9 @@ const Login = () => {
       window.alert("Invalid Credentials..!!");
     }
     else {
+      // first check type value after that payload value will be false to navbar
+      // It means user already login
+      dispatch({ type: "USER", payload: true });
       window.alert("Login Successfull..!!");
       // If user input correct email and password then it will get one alert and goes to home page
       navigate("/");
