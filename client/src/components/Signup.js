@@ -6,18 +6,20 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   // It takes user data field
-  // Mention all the field in the usestate hook
+  // Mention all the field in the useState hook
   const [user, setUser] = useState({
     name: "", email: "", phone: "", password: "", cpassword: ""
   });
 
   // To get the user data
-  // Also you can see on inspect element after components
+  // Also you can see on browser to inspect an element after components
   let name, value;
   const handleInputs = (e) => {
     console.log(e);
     name = e.target.name;
     value = e.target.value;
+
+    // Get all the value using the target
     setUser({ ...user, [name]: value })
   }
 
@@ -25,13 +27,14 @@ const SignUp = () => {
     e.preventDefault();
     const { name, email, phone, password, cpassword } = user;
 
-    // It connects the backend
+    // It navigate to directly our /register post method from auth.js file
     const res = await fetch("/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
+        // Get all the data from the user
         name, email, phone, password, cpassword
       })
     });
@@ -44,6 +47,7 @@ const SignUp = () => {
       console.log("Invalid Registratoin");
     }
     else {
+      // If registratio succesfull then user will get one alert box and after that it's navigate to login page
       window.alert("Registration Successfull");
       console.log("Successfull Registration");
       navigate("/login");

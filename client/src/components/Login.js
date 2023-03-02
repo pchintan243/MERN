@@ -4,7 +4,7 @@ import { UserContext } from '../App';
 
 const Login = () => {
 
-  // For navbar option login logout modify
+  // For navbar option login and logout modify
   const { state, dispatch } = useContext(UserContext);
 
   const navigate = useNavigate();
@@ -15,7 +15,6 @@ const Login = () => {
     e.preventDefault();
 
     // Getting the post request using auth.js
-
     const res = await fetch('/signin', {
       method: "POST",
       headers: {
@@ -36,7 +35,7 @@ const Login = () => {
       window.alert("Invalid Credentials..!!");
     }
     else {
-      // first check type value after that payload value will be false to navbar
+      // First check type value after that payload value will be true to navbar
       // It means user already login
       dispatch({ type: "USER", payload: true });
       window.alert("Login Successfull..!!");

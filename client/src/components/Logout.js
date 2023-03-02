@@ -8,7 +8,8 @@ const Logout = () => {
 
     const navigate = useNavigate();
 
-    // Promises
+    // Withour async await method
+    // then and catch method
     useEffect(() => {
         fetch('/logout', {
             method: "GET",
@@ -20,7 +21,7 @@ const Logout = () => {
 
         }).then((res) => {
 
-            // first check type value after that payload value will be true to navbar
+            // First check type value after that payload value will be false to navbar
             // It means user can go navigate to login page
             dispatch({ type: "USER", payload: false });
             navigate('/login', { replace: true });

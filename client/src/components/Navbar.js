@@ -7,7 +7,7 @@ const Navbar = () => {
 
     const { state, dispatch } = useContext(UserContext);
 
-    // Our state value is getting from UseReducer file
+    // Our state value is getting from--> reducer/UseReducer.js file
     const CheckFunction = () => {
         // If user is login then it shows logout option
         // Not display registraion or login option
