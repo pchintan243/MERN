@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 const ErrorPage = () => {
     return (
+        // If user type not existring root then this error page will be shown
         <>
             <div id="notfound">
                 <div className="notfound">
