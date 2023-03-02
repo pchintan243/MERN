@@ -110,7 +110,7 @@ const About = () => {
                       <p>{userData.name}</p>
                     </div>
                   </div>
-                  {/* If User has login then name, email, phone number details are already filled. Only user need to type the message.  */}
+                  
                   <div className="row">
                     <div className="col-md-3 d-flex justify-content-space-between">
                       <label className='text-dark m-0 h5'>Email</label>
