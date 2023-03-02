@@ -11,9 +11,11 @@ router.get('/', (req, res) => {
     res.send('dhskh')
 })
 
+// Store the registration details
 router.post('/register', async (req, res) => {
     const { name, email, phone, password, cpassword } = req.body;
     try {
+        // Check user is already registered or not
         const userExist = await User.findOne({ email: email });
         if (userExist) {
             return res.status(422).json({ error: "Email was already exist" });
@@ -32,14 +34,15 @@ router.post('/register', async (req, res) => {
     }
 })
 
-//login route
 
+//login route
 router.post('/signin', async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
             return res.status(400).json({ error: "please filled the data}" })
         }
+        // Check in database email is already registered or not
         const userLogin = await User.findOne({ email: email });
         if (userLogin) {
             const isMatch = await bcrypt.compare(password, userLogin.password);
@@ -70,7 +73,7 @@ router.post('/signin', async (req, res) => {
     }
 })
 
-// authenticate is user for user not directly go to any page without login
+// authenticate is use for user not directly go to any page without login
 router.get("/about", authenticate, (req, res) => {
     res.send(req.rootUser);
 })
@@ -92,6 +95,7 @@ router.post('/contact', authenticate, async (req, res) => {
         const userContact = await User.findOne({ _id: req.userID });
 
         if (userContact) {
+            // Get all the detail
             const userMessage = await userContact.addMessage(name, email, phone, message);
             await userContact.save();
             res.status(201).json({ message: "User contact successfully..!!" })

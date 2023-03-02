@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    // Make sure :Write messages don't write name field value in schema because number of messages are there
+    // Make sure :Write messages don't write name field value in schema because more than one messages are there
     messages: [
         {
             name: {
@@ -50,6 +50,7 @@ const userSchema = new mongoose.Schema({
     ],
     tokens: [
         {
+            // Store the token
             token: {
                 type: String,
                 required: true
@@ -59,7 +60,6 @@ const userSchema = new mongoose.Schema({
 })
 
 // We are hashing the password
-
 userSchema.pre('save', async function (next) {
     if (this.isModified('password')) {
         this.password = await bcrypt.hash(this.password, 12);
