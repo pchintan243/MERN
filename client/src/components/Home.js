@@ -18,7 +18,7 @@ const Home = () => {
             console.log(data);
             // To get the data
             setUserName(data.name);
-            // If you will get the data means user was login so we show value changing to true
+            // If you will get the data means user was login so we changing the show value as true
             setShow(true);
         }
         catch (error) {
@@ -36,6 +36,7 @@ const Home = () => {
                 <p className='m-0'>
                     WELCOME
                 </p>
+                {/* If user login then and then only user see it's username otherwise it show below content */}
                 <h1 style={{ fontSize: "5rem" }}>{userName}</h1>
                 {/* User login then it shows different content */}
                 <h2>{show ? 'We are the MERN developer' : 'Happy to see you that'}</h2>
