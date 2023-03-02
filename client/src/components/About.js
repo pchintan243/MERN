@@ -5,6 +5,8 @@ import profile from '../images/aboutpic.png';
 const About = () => {
   const navigate = useNavigate();
 
+  // useState--> first userData to print the data
+  // useState--> second setUserData is use to changing the value or to get the data
   const [userData, setUserData] = useState({});
 
   const callAboutPage = async () => {
@@ -42,14 +44,17 @@ const About = () => {
   return (
     <>
       <div className="container m-6">
+        {/* You print the data on the about page so make sure form method will be get so you can get the data from the database */}
         <form method="GET">
           <div className='row d-flex justify-content-center'>
             <div className="col-md-9 d-flex justify-content-center align-items-center">
               <div className="col-md-3">
+                {/* In this way you can insert the images */}
                 <img src={profile} alt="profile-pic" style={{ height: "200px", width: "170px" }} />
               </div>
               <div className="col-md-6">
                 <div className="profile-head">
+                  {/* Get the name from the database */}
                   <h3>{userData.name}</h3>
                   <h5>Web Developer</h5>
                   <p className='mt-3 mb-5 fw-bold'>Rankings: <span> 1/10 </span></p>
@@ -101,15 +106,18 @@ const About = () => {
                     </div>
                     <div className="col-md-3"></div>
                     <div className="col-md-6">
+                      {/* Get the name from the database */}
                       <p>{userData.name}</p>
                     </div>
                   </div>
+                  {/* If User has login then name, email, phone number details are already filled. Only user need to type the message.  */}
                   <div className="row">
                     <div className="col-md-3 d-flex justify-content-space-between">
                       <label className='text-dark m-0 h5'>Email</label>
                     </div>
                     <div className="col-md-3"></div>
                     <div className="col-md-6">
+                      {/* Get the email from the database */}
                       <p>{userData.email}</p>
                     </div>
                   </div>
@@ -120,6 +128,7 @@ const About = () => {
                     </div>
                     <div className="col-md-3"></div>
                     <div className="col-md-6">
+                      {/* Get the phone number from the database */}
                       <p>{userData.phone}</p>
                     </div>
                   </div>
