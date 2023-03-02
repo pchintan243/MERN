@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 
 const Contact = () => {
 
+  // Get the data of user
   const [userData, setUserData] = useState({ name: "", email: "", phone: "", message: "" });
 
+  // For print the data make sure form method will be get method
   const userContact = async () => {
     try {
       const res = await fetch("/getdata", {
@@ -37,16 +39,19 @@ const Contact = () => {
     const value = e.target.value;
 
     // Get all the details using below syntax
-    // This is use because we want multiple data like name, email, phone, message
+    // It's use for because we want multiple data like name, email, phone, message
     setUserData({ ...userData, [name]: value })
   }
 
   // Send the data to the backend
   const contactForm = async (e) => {
     e.preventDefault();
-    
-    const { name, email, phone, message } = userData;
+    // If User already login then name, email, phone number details are already filled. Only user need to type the message.
 
+    const { name, email, phone, message } = userData;
+    // It is directly push to out backend /about method
+    // We use proxy in client/package.json file
+    // For send the data to the database make sure form method will be post method
     const res = await fetch("/contact", {
       method: "POST",
       headers: {
